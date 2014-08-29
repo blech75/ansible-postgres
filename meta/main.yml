@@ -4,11 +4,11 @@ galaxy_info:
   description: Installs/configures the specified version of PostgreSQL and creates the specified list of databases.
   company: SSIL
   license: BSD
-  min_ansible_version: 1.2
+  min_ansible_version: 1.6
   platforms:
   - name: 'Ubuntu'
     versions:
-      - 'all'
+      - 'precise'
   categories:
   - 'database'
   - 'database:sql'
