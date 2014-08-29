@@ -10,14 +10,14 @@ Tested on Ubuntu 12.04 Server.
 
 The default variables are as follows:
 
-    postgres_version:  '9.3'
+    postgres_version: '9.3'
     postgres_username: 'postgres'
     postgres_password: 'postgres'
-    locale: en_AU.UTF-8
-    encoding: UTF-8
+    locale: 'en_AU'
+    encoding: 'UTF-8'
     locale_language_packs:
-      - language-pack-en
-      - language-pack-en-base
+      - 'language-pack-en'
+      - 'language-pack-en-base'
 
 ## Dependencies
 
