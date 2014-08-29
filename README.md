@@ -27,7 +27,7 @@ The default variables are as follows:
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: ssilab.postgres, postgres_version: '9.3' }
 
 # License
 
