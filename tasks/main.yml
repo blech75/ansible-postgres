@@ -1,0 +1,59 @@
+---
+- name: 'Install apt dependencies'
+  apt: 'pkg={{ item }}'
+  sudo: 'yes'
+  with_items:
+    - 'python-pycurl'     # For adding apt repositories
+    - 'python-psycopg2'   # Required by Ansible to create Postgres databases
+    - 'libpq-dev'         # Ditto
+
+- name: 'Add PostgreSQL apt key'
+  sudo: 'yes'
+  apt_key: 'url=https://www.postgresql.org/media/keys/ACCC4CF8.asc'
+
+- name: 'Add PostgreSQL apt repository'
+  sudo: 'yes'
+  apt_repository: >
+    repo='deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main'
+    state=present
+
+- name: 'Install PostgreSQL'
+  sudo: 'yes'
+  apt: 'pkg={{ item }} state=latest'
+  with_items:
+    - 'postgresql-{{ postgres_version }}'
+    - 'postgresql-contrib-{{ postgres_version }}'
+
+- name: 'Initialise PostgreSQL'
+  sudo: 'yes'
+  command: >
+    pg_createcluster {{ postgres_version }} main --locale={{ locale }} --encoding {{ encoding }}
+    creates=/etc/postgresql/{{ postgres_version }}/main
+
+- name: 'Apply PostgreSQL configuration file'
+  sudo: 'yes'
+  file: >
+    src=pg_hba.conf
+    dest=/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf
+    owner={{ postgres_username }}
+    group={{ postgres_username }}
+    mode=0600
+
+- name: 'Start PostgreSQL service'
+  sudo: 'yes'
+  service: >
+    name=postgresql
+    enabled=yes
+    state=started
+
+- name: 'Create PostgreSQL databases'
+  postgresql_db: >
+    name={{ item }}
+    login_user={{ postgres_username }}
+    login_password={{ postgres_password }}
+    encoding={{ encoding }}
+    lc_collate={{ locale }}
+    lc_ctype={{ locale }}
+  sudo: 'yes'
+  sudo_user: '{{ postgres_username }}'
+  with_items: postgres_databases
