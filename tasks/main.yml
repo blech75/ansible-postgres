@@ -1,5 +1,6 @@
 ---
 - name: 'Install apt dependencies'
+  tags: 'postgres'
   apt: 'pkg={{ item }}'
   sudo: 'yes'
   with_items:
@@ -8,16 +9,19 @@
     - 'libpq-dev'         # Ditto
 
 - name: 'Add PostgreSQL apt key'
+  tags: 'postgres'
   sudo: 'yes'
   apt_key: 'url=https://www.postgresql.org/media/keys/ACCC4CF8.asc'
 
 - name: 'Add PostgreSQL apt repository'
+  tags: 'postgres'
   sudo: 'yes'
   apt_repository: >
     repo='deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main'
     state=present
 
 - name: 'Install PostgreSQL'
+  tags: 'postgres'
   sudo: 'yes'
   apt: 'pkg={{ item }} state=latest'
   with_items:
@@ -25,12 +29,14 @@
     - 'postgresql-contrib-{{ postgres_version }}'
 
 - name: 'Initialise PostgreSQL'
+  tags: 'postgres'
   sudo: 'yes'
   command: >
     pg_createcluster {{ postgres_version }} main --locale={{ locale }} --encoding {{ encoding }}
     creates=/etc/postgresql/{{ postgres_version }}/main
 
 - name: 'Apply PostgreSQL configuration file'
+  tags: 'postgres'
   sudo: 'yes'
   file: >
     src=pg_hba.conf
@@ -40,6 +46,7 @@
     mode=0600
 
 - name: 'Start PostgreSQL service'
+  tags: 'postgres'
   sudo: 'yes'
   service: >
     name=postgresql
@@ -47,6 +54,7 @@
     state=started
 
 - name: 'Create PostgreSQL databases'
+  tags: 'postgres'
   postgresql_db: >
     name={{ item }}
     login_user={{ postgres_username }}
