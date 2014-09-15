@@ -13,6 +13,9 @@ The default variables are as follows:
     postgres_version: '9.3'
     postgres_username: 'postgres'
     postgres_password: 'postgres'
+    postgres_databases:
+      - 'my_postgres_db'
+      - 'my_other_postgres_db'
     locale: 'en_AU'
     encoding: 'UTF-8'
     locale_language_packs:
@@ -25,9 +28,13 @@ The default variables are as follows:
 
 ## Example Playbook
 
-    - hosts: servers
+    - hosts: 'servers'
       roles:
-         - { role: ssilab.postgres, postgres_version: '9.3' }
+        - role: 'ssilab.postgres'
+          postgres_version: '9.3'
+          postgres_databases:
+            - 'my_app_db'
+
 
 # License
 
