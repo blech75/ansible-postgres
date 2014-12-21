@@ -16,4 +16,4 @@ dependencies:
   - role: 'ssilab.locales'
     locale: '{{ postgres_locale }}'
     encoding: '{{ postgres_encoding }}'
-    locale_language_packs: 'postgres_locale_language_packs'
+    locale_language_packs: '{{ postgres_locale_language_packs }}'
