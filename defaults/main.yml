@@ -2,8 +2,8 @@
 postgres_version: '9.3'
 postgres_username: 'postgres'
 postgres_password: 'postgres'
-locale: 'en_AU'
-encoding: 'UTF-8'
-locale_language_packs:
+postgres_locale: 'en_AU'
+postgres_encoding: 'UTF-8'
+postgres_locale_language_packs:
   - 'language-pack-en'
   - 'language-pack-en-base'

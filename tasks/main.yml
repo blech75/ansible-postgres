@@ -32,7 +32,7 @@
   tags: 'postgres'
   sudo: 'yes'
   command: >
-    pg_createcluster {{ postgres_version }} main --locale={{ locale }}.{{ encoding }} --encoding {{ encoding }}
+    pg_createcluster {{ postgres_version }} main --locale={{ postgres_locale }}.{{ postgres_encoding }} --encoding {{ postgres_encoding }}
     creates=/etc/postgresql/{{ postgres_version }}/main
 
 - name: 'Apply PostgreSQL configuration file'
@@ -59,9 +59,9 @@
     name={{ item }}
     login_user={{ postgres_username }}
     login_password={{ postgres_password }}
-    encoding={{ encoding }}
-    lc_collate={{ locale }}.{{ encoding }}
-    lc_ctype={{ locale }}.{{ encoding }}
+    encoding={{ postgres_encoding }}
+    lc_collate={{ postgres_locale }}.{{ postgres_encoding }}
+    lc_ctype={{ postgres_locale }}.{{ postgres_encoding }}
   sudo: 'yes'
   sudo_user: '{{ postgres_username }}'
   with_items: postgres_databases
