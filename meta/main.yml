@@ -2,7 +2,7 @@
 galaxy_info:
   author: 'Rohan Liston'
   description: 'Installs/configures the specified version of PostgreSQL and creates the specified list of databases.'
-  company: 'SSIL'
+  company: 'DSTIL'
   license: 'BSD'
   min_ansible_version: 1.6
   platforms:
