@@ -62,6 +62,5 @@
     encoding={{ postgres_encoding }}
     lc_collate={{ postgres_locale }}.{{ postgres_encoding }}
     lc_ctype={{ postgres_locale }}.{{ postgres_encoding }}
-  sudo: 'yes'
-  sudo_user: '{{ postgres_username }}'
-  with_items: postgres_databases
+  become: true
+  with_items: '{{ postgres_databases }}'
