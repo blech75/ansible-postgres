@@ -13,7 +13,8 @@ galaxy_info:
     - 'database'
     - 'database:sql'
 dependencies:
-  - role: 'ssilab.locales'
+  - name: 'ssilab.locales'
+    src: https://github.com/blech75/ansible-locales/archive/v2.0-variable-syntax-fix.tar.gz
     locale: '{{ postgres_locale }}'
     encoding: '{{ postgres_encoding }}'
     locale_language_packs: '{{ postgres_locale_language_packs }}'
